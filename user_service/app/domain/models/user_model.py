@@ -1,9 +1,15 @@
+from sqlalchemy import Enum
 from sqlmodel import Field, SQLModel
 
+class UserRole(str, Enum):
+    ADMIN = "ADMIN"
+    CLIENT = "CLIENT"
+
 class User(SQLModel, table=True):
-    __tablename__ = 'user'
+    __tablename__ = 'users'
     user_id: int = Field(default=None, primary_key=True)
     username: str = Field(nullable=False, unique=True, min_length=3, max_length=64)
     email: str = Field(nullable=False, unique=True, min_length=5, max_length=64)
     password: str = Field(nullable=False)
     address: str = Field(nullable=False, min_length=100)
+    role: str = Field(default=UserRole.CLIENT)

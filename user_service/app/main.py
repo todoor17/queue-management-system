@@ -1,15 +1,10 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy import text
+from fastapi import FastAPI
+from app.api.user_routes import router as user_router
 
-from utils.db_connector import get_db
 app = FastAPI()
+
+app.include_router(user_router, prefix="/users", tags=["Users"])
 
 @app.get("/")
 def read_root():
-    return {"message": "Hello World"}
-
-@app.get("/test")
-async def test(db = Depends(get_db)):
-    query = db.execute(text('SELECT * FROM user')).fetchall()
-    print(query)
     return {"message": "Hello World"}
