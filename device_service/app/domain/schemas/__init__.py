@@ -1,1 +1,1 @@
-from .device_schema import CreateDeviceRequestDTO
+from .device_schema import CreateDeviceRequestDTO, UpdateDeviceRequestDTO

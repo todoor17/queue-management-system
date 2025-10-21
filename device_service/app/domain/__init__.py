@@ -1,2 +1,2 @@
 from .models import DeviceModel
-from .schemas import CreateDeviceRequestDTO
+from .schemas import CreateDeviceRequestDTO, UpdateDeviceRequestDTO
