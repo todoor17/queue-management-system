@@ -1,13 +1,11 @@
 import os
 
 from sqlalchemy import create_engine
-from sqlalchemy.engine import URL
 from sqlalchemy.orm import sessionmaker
 from sqlmodel import SQLModel
 
-from app.domain.models.user_model import User
-
-url = os.environ.get('DATABASE_URL')
+# url = os.environ.get('DATABASE_URL')
+url = "postgresql://postgres:Norocel17@localhost:5432/ds-users"
 
 engine = create_engine(url)
 SQLModel.metadata.create_all(engine)

@@ -1,5 +1,5 @@
 services:
-  db:
+  user-db:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
@@ -9,15 +9,27 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - shared-network
 
   user_service:
     build: .
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - user-db
     environment:
-      DATABASE_URL: postgresql://postgres:Norocel17@db:5432/sd_users
+      DATABASE_URL: postgresql://postgres:Norocel17@user-db:5432/sd_users
+    networks:
+      - shared-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user-service.rule=Host(`user.localhost`)"
+      - "traefik.http.routers.user-service.entrypoints=web"
 
 volumes:
   pgdata:
+
+networks:
+  shared-network:
+    external: true
