@@ -1,1 +1,2 @@
-from .device_model import DeviceModel
+from .device_model import *
+from .user_devices_model import *

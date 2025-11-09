@@ -1,2 +1,2 @@
-from .models import DeviceModel
-from .schemas import CreateDeviceRequestDTO, UpdateDeviceRequestDTO
+from .models import *
+from .schemas import *

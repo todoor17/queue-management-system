@@ -1,5 +1,5 @@
 services:
-  db:
+  device-db:
     image: postgres:16
     environment:
       POSTGRES_USER: postgres
@@ -9,15 +9,27 @@ services:
       - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - shared-network
 
   device-service:
     build: .
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      - device-db
     environment:
-      DATABASE_URL: postgresql://postgres:Password123@db:5432/devices
+      DATABASE_URL: postgresql://postgres:Password123@device-db:5432/devices
+    networks:
+      - shared-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.device-service.rule=Host(`device.localhost`)"
+      - "traefik.http.routers.device-service.entrypoints=web"
 
 volumes:
   pgdata:
+
+networks:
+  shared-network:
+    external: true

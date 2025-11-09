@@ -1,3 +1,5 @@
+import requests
+
 from fastapi import HTTPException, status
 
 from app.domain import DeviceModel

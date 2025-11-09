@@ -1,4 +1,4 @@
-from app.domain import DeviceModel
+from app.domain import DeviceModel, UserDevicesModel
 
 
 class DeviceRepository:
