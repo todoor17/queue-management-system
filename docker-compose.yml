@@ -1,0 +1,150 @@
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+
+  ###################################################
+  # TRAEFIK (reverse proxy)
+  ###################################################
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: always
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+    networks:
+      - shared-network
+
+
+  ###################################################
+  # USER SERVICE
+  ###################################################
+  user-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${USER_DB_NAME}
+    volumes:
+      - user_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  user_service:
+    build: ./user_service
+    env_file: .env
+    depends_on:
+      user-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@user-db:5432/${USER_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user.rule=Host(`user.localhost`)"
+      - "traefik.http.services.user.loadbalancer.server.port=8080"
+      - "traefik.http.routers.user.entrypoints=web"
+    networks:
+      - shared-network
+
+  ###################################################
+  # DEVICE SERVICE
+  ###################################################
+  device-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DEVICE_DB_NAME}
+    volumes:
+      - device_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  device_service:
+    build: ./device_service
+    env_file: .env
+    depends_on:
+      device-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@device-db:5432/${DEVICE_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.device.rule=Host(`device.localhost`)"
+      - "traefik.http.services.device.loadbalancer.server.port=8081"
+      - "traefik.http.routers.device.entrypoints=web"
+    networks:
+      - shared-network
+
+  ###################################################
+  # AUTH SERVICE
+  ###################################################
+  auth-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${AUTH_DB_NAME}
+    volumes:
+      - auth_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  auth_service:
+    build: ./auth_service
+    env_file: .env
+    depends_on:
+      auth-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@auth-db:5432/${AUTH_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=Host(`auth.localhost`)"
+      - "traefik.http.services.auth.loadbalancer.server.port=8082"
+      - "traefik.http.routers.auth.entrypoints=web"
+    networks:
+      - shared-network
+
+  frontend_service:
+    build: ./frontend_service
+    container_name: frontend_service
+    depends_on:
+      - user_service
+      - auth_service
+      - device_service
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`frontend.localhost`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+    networks:
+      - shared-network
+
+volumes:
+  user_pg:
+  device_pg:
+  auth_pg:

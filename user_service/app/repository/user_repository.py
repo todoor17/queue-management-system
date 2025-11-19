@@ -34,11 +34,12 @@ class UserRepository:
 
     def check_username_uniqueness(self, username, current_id):
         return (self.db.query(UserModel)
-                .filter(UserModel.username == username, UserModel.user_id != current_id).count() > 0)
+                .filter(UserModel.username == username, UserModel.user_id != current_id).count() == 0)
+
 
     def check_email_uniqueness(self, email, current_id):
         return (self.db.query(UserModel)
-                .filter(UserModel.email == email, UserModel.user_id != current_id).count() > 0)
+                .filter(UserModel.email == email, UserModel.user_id != current_id).count() == 0)
 
 
     def update_user(self, updated_user: UserModel):

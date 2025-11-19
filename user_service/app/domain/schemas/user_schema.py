@@ -6,6 +6,7 @@ class UserBaseDTO(BaseModel):
     username: str
     email: str
     address: Optional[str] = None
+    role: Optional[str] = Field(default="CLIENT")
 
     class Config:
         from_attributes = True
@@ -19,15 +20,13 @@ class CreateUserRequestDTO(BaseModel):
 
 
 class CreateUserResponseDTO(UserBaseDTO):
-    pass
+    user_id: int
 
 
 class GetAllUsersResponseDTO(BaseModel):
     quantity: int
-    users: List[UserBaseDTO]
+    users: List[CreateUserResponseDTO]
 
 
 class GetUserResponseDTO(UserBaseDTO):
-    pass
-
-
+    user_id: int

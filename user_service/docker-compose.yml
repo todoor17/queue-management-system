@@ -1,12 +1,8 @@
 services:
   user-db:
     image: postgres:16
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Norocel17
-      POSTGRES_DB: sd_users
-    ports:
-      - "5432:5432"
+    env_file:
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -19,7 +15,7 @@ services:
     depends_on:
       - user-db
     environment:
-      DATABASE_URL: postgresql://postgres:Norocel17@user-db:5432/sd_users
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
     networks:
       - shared-network
     labels:

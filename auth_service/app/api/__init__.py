@@ -1,1 +1,1 @@
-from .main_router import router as main_router
+from .auth_routes import *
