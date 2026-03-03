@@ -1,0 +1,22 @@
+.pageContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.half1 {
+  height: 100%;
+  width: 67%;
+  background-color: #546057;
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+}
+
+.half2 {
+  height: 100%;
+  width: 33%;
+  background-color: #19202c;
+}

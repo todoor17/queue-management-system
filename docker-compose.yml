@@ -1,0 +1,199 @@
+version: "3.9"
+
+networks:
+  shared-network:
+    driver: bridge
+
+services:
+
+  # TRAEFIK REVERSE PROXY
+  traefik:
+    image: traefik:v2.10
+    container_name: traefik
+    restart: always
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+    networks:
+      - shared-network
+
+  # USER SERVICE + DB
+  user-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${USER_DB_NAME}
+    volumes:
+      - user_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  user_service:
+    build: ./user_service
+    env_file: .env
+    depends_on:
+      user-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@user-db:5432/${USER_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.user.rule=Host(`user.localhost`)"
+      - "traefik.http.services.user.loadbalancer.server.port=8080"
+      - "traefik.http.routers.user.entrypoints=web"
+    networks:
+      - shared-network
+
+  # DEVICE SERVICE + DB
+  device-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${DEVICE_DB_NAME}
+    volumes:
+      - device_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  device_service:
+    build: ./device_service
+    env_file: .env
+    depends_on:
+      device-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@device-db:5432/${DEVICE_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.device.rule=Host(`device.localhost`)"
+      - "traefik.http.services.device.loadbalancer.server.port=8081"
+      - "traefik.http.routers.device.entrypoints=web"
+    networks:
+      - shared-network
+
+  # AUTH SERVICE + DB
+  auth-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${AUTH_DB_NAME}
+    volumes:
+      - auth_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  auth_service:
+    build: ./auth_service
+    env_file: .env
+    depends_on:
+      auth-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@auth-db:5432/${AUTH_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=Host(`auth.localhost`)"
+      - "traefik.http.services.auth.loadbalancer.server.port=8082"
+      - "traefik.http.routers.auth.entrypoints=web"
+    networks:
+      - shared-network
+
+  # FRONTEND SERVICE
+  frontend_service:
+    build: ./frontend_service
+    container_name: frontend_service
+    depends_on:
+      - user_service
+      - auth_service
+      - device_service
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`frontend.localhost`)"
+      - "traefik.http.routers.frontend.entrypoints=web"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
+    networks:
+      - shared-network
+
+  # MONITORING SERVICE + DB
+  monitoring-db:
+    image: postgres:16
+    env_file: .env
+    environment:
+      POSTGRES_DB: ${MONITORING_DB_NAME}
+    volumes:
+      - monitoring_pg:/var/lib/postgresql/data
+    networks:
+      - shared-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+
+  monitoring_service:
+    build: ./monitoring_service
+    env_file: .env
+    depends_on:
+      monitoring-db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@monitoring-db:5432/${MONITORING_DB_NAME}
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitoring.rule=Host(`monitoring.localhost`)"
+      - "traefik.http.services.monitoring.loadbalancer.server.port=8083"
+      - "traefik.http.routers.monitoring.entrypoints=web"
+    networks:
+      - shared-network
+
+  # ALERT SERVICE
+  alert_service:
+    build: ./alert_service
+    env_file: .env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      ALGORITHM: ${ALGORITHM}
+      RABBITMQ_URL: ${RABBITMQ_URL}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ws.rule=Host(`ws.localhost`)"
+      - "traefik.http.services.ws.loadbalancer.server.port=8084"
+      - "traefik.http.routers.ws.entrypoints=web"
+    networks:
+      - shared-network
+
+volumes:
+  user_pg:
+  device_pg:
+  auth_pg:
+  monitoring_pg:

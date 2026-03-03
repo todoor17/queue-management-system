@@ -1,0 +1,1 @@
+from .device_routes import router as device_router
