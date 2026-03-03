@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d9fc818d-15bf-4c7b-8633-e4d6e81d6874" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../alert_service/app/service/alert_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../alert_service/app/service/chat_manager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../alert_service/app/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../alert_service/app/utils/gemini_response.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.env" beforeDir="false" afterPath="$PROJECT_DIR$/../.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/.idea/alert_service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/.idea/alert_service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/api/http_routes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/api/websocket_routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/api/websocket_routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/events/consumer.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/events/consumer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/service/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/service/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/service/chat_logic.py" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/app/utils/chat_logic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/app/service/connection_manager.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../alert_service/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../alert_service/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../auth_service/app/utils/db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/../auth_service/app/utils/db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../device_service/app/utils/db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/../device_service/app/utils/db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/components/DeviceComponent/DeviceComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/components/DeviceComponent/DeviceComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/components/ManagementSwitcher.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/components/ManagementSwitcher.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/components/UsersComponent/UsersComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/components/UsersComponent/UsersComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/next.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/next.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/store/auth/auth-thunks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/store/auth/auth-thunks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/store/devices/device-thunks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/store/devices/device-thunks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/store/monitoring/monitoring-thunks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/store/monitoring/monitoring-thunks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend_service/store/users/user-thunks.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend_service/store/users/user-thunks.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/events/measure_publisher.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/events/measure_publisher.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/utils/db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/utils/db_connector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../user_service/app/utils/db_connector.py" beforeDir="false" afterPath="$PROJECT_DIR$/../user_service/app/utils/db_connector.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FastAPI main" />
+        <option value="FastAPI test_main" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="35wTDjSNXM2CESU7W4ixSeKn7ZW" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "FastAPI.monitoring_service.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "ai.playground.ignore.import.keys.banner.in.settings": "true",
+    "git-widget-placeholder": "a3",
+    "last_opened_file_path": "C:/Users/rczxc/Old Win/ds2025_30444_todor_ioan_assignment_1/monitoring_service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "configurable.group.editor",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Uni\DS\ds2025_30444_todor_ioan_assignment_1\monitoring_service\app\events" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="monitoring_service" type="Python.FastAPI">
+      <option name="file" value="$PROJECT_DIR$/main.py" />
+      <module name="monitoring_service" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="RUN_TOOL" value="" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PY-253.29346.142" />
+        <option value="bundled-python-sdk-f2b7a9f6281b-6e1f45a539f7-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-253.29346.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d9fc818d-15bf-4c7b-8633-e4d6e81d6874" name="Changes" comment="" />
+      <created>1764020017151</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764020017151</updated>
+      <workItem from="1764020018856" duration="2603000" />
+      <workItem from="1764085504107" duration="1799000" />
+      <workItem from="1764704017068" duration="12467000" />
+      <workItem from="1764718660130" duration="2039000" />
+      <workItem from="1765354432987" duration="579000" />
+      <workItem from="1765480809412" duration="80000" />
+      <workItem from="1768156976177" duration="11428000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/monitoring_service$monitoring_service.coverage" NAME="monitoring_service Coverage Results" MODIFIED="1764022500372" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/monitoring_service$main.coverage" NAME="main Coverage Results" MODIFIED="1764022734849" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
+  </component>
+</project>
